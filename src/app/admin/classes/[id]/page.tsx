@@ -110,8 +110,8 @@ export default function EditClass() {
       setError('Only JPEG and PNG images are allowed.');
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
-      setError('Image must be less than 2MB.');
+          if (file.size > 10 * 1024 * 1024) {
+        setError('Image must be less than 10MB.');
       return;
     }
     const reader = new FileReader();
@@ -131,15 +131,25 @@ export default function EditClass() {
     setUploading(true);
     setError('');
     try {
-      const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels, zoom, 1);
+      console.log('Starting image upload...');
+      const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels, zoom, 1) as Blob;
+      console.log('Image cropped, blob size:', croppedBlob.size);
+      
       const storage = getStorage();
       const storageRef = ref(storage, `class-images/${Date.now()}.jpg`);
+      console.log('Uploading to Firebase Storage...');
+      
       await uploadBytes(storageRef, croppedBlob as Blob);
+      console.log('Upload completed, getting download URL...');
+      
       const url = await getDownloadURL(storageRef);
+      console.log('Download URL obtained:', url);
+      
       setForm(f => f && ({ ...f, imageUrl: url }));
       setCropping(false);
     } catch (err) {
-      setError('Failed to upload image. Please try again.');
+      console.error('Upload error:', err);
+      setError(`Failed to upload image: ${err instanceof Error ? err.message : 'Unknown error'}`);
     }
     setUploading(false);
   }

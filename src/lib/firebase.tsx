@@ -2,21 +2,22 @@
 
 import { FirebaseApp, getApps, initializeApp } from 'firebase/app';
 import {
-  GoogleAuthProvider,
-  User,
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
+    GoogleAuthProvider,
+    User,
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
 } from 'firebase/auth';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
+    ReactNode,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
 } from 'react';
 
 const firebaseConfig = {
@@ -53,6 +54,24 @@ export interface Facility {
 }
 
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+
+// Storage utility functions
+export const uploadImage = async (file: File, path: string): Promise<string> => {
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+};
+
+export const deleteImage = async (path: string): Promise<void> => {
+  const storageRef = ref(storage, path);
+  await deleteObject(storageRef);
+};
+
+export const getImageUrl = async (path: string): Promise<string> => {
+  const storageRef = ref(storage, path);
+  return getDownloadURL(storageRef);
+};
 
 export interface Registration {
   id: string;

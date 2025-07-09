@@ -98,8 +98,8 @@ export default function AddClass() {
       setError('Only JPEG and PNG images are allowed.');
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
-      setError('Image must be less than 2MB.');
+          if (file.size > 10 * 1024 * 1024) {
+        setError('Image must be less than 10MB.');
       return;
     }
     const reader = new FileReader();
@@ -160,6 +160,7 @@ export default function AddClass() {
                 <option key={opt} value={opt}>{opt === 'Any' ? 'Any' : `${opt} years`}</option>
               ))}
             </select>
+
             <div className="flex flex-col gap-2">
               <span className="font-semibold">Class Image</span>
               <div className="flex gap-4 items-center">

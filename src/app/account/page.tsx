@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { db, Facility, Registration, useAuth } from '@/lib/firebase';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import { Building2, Edit, Key, Mail, MapPin, Phone, User, Users } from 'lucide-react';
+import { Building2, Edit, Key, Mail, MapPin, Phone, Rabbit, User, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -357,7 +357,10 @@ export default function AccountPage() {
                 </div>
                 
                 <div>
-                  <Label>Children ({registration.children.length})</Label>
+                  <Label className="flex items-center gap-2">
+                    <Rabbit className="w-4 h-4 text-primary" />
+                    Children ({registration.children.length})
+                  </Label>
                   <div className="flex items-center gap-2 mt-1">
                     <Input 
                       value={registration.children.join(', ')} 

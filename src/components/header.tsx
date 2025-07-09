@@ -1,9 +1,5 @@
 'use client';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ShoppingCart, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/firebase';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +9,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useCart } from '@/context/cart-context';
+import { useAuth } from '@/lib/firebase';
+import { Rabbit, ShoppingCart, User } from 'lucide-react';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 export function Header() {
@@ -32,13 +31,7 @@ export function Header() {
     <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-40 border-b">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="https://placehold.co/40x40.png"
-            width={40}
-            height={40}
-            alt="TumbleBunnies Logo"
-            data-ai-hint="bunny logo"
-          />
+          <Rabbit className="h-10 w-10 text-primary" />
           <span className="font-headline text-2xl font-bold text-primary">
             TumbleBunnies
           </span>

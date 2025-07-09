@@ -4,6 +4,7 @@ import { AdminAuthGuard } from '@/components/admin/admin-auth-guard';
 import { AdminHeader } from '@/components/admin/admin-header';
 import { Class, db, Facility } from '@/lib/firebase';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { Building2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -82,7 +83,10 @@ export default function AdminFacilities() {
                 <tbody>
                   {facilities.map(facility => (
                     <tr key={facility.id} className="border-t">
-                      <td className="p-2">{facility.name}</td>
+                      <td className="p-2 flex items-center gap-2">
+                        <Building2 className="h-5 w-5 text-primary" />
+                        {facility.name}
+                      </td>
                       <td className="p-2">{facility.address}</td>
                       <td className="p-2">{facility.phone}</td>
                       <td className="p-2">{facility.registrationCode}</td>

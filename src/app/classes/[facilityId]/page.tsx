@@ -9,7 +9,7 @@ import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
 import { Class, db, Facility, Merchandise, useAuth } from "@/lib/firebase";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import { Clock, Star, Users } from "lucide-react";
+import { Baby, Clock, Dumbbell, Heart, Music, Palette, PersonStanding, Rabbit, Shirt, Smile, Sparkles, Star, Sword, Users, Wand } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -150,6 +150,22 @@ export default function FacilityClassesPage() {
     });
   };
 
+  // Helper to pick an icon for each class
+  const classIcon = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.includes("manifestation")) return <Wand className="h-12 w-12 text-primary" />;
+    if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-12 w-12 text-primary" />;
+    if (lower.includes("gymnastics")) return <Dumbbell className="h-12 w-12 text-primary" />;
+    if (lower.includes("cheer")) return <Sparkles className="h-12 w-12 text-primary" />;
+    if (lower.includes("karate")) return <Sword className="h-12 w-12 text-primary" />;
+    if (lower.includes("art")) return <Palette className="h-12 w-12 text-primary" />;
+    if (lower.includes("music")) return <Music className="h-12 w-12 text-primary" />;
+    if (lower.includes("yoga")) return <Heart className="h-12 w-12 text-primary" />;
+    if (lower.includes("zumba")) return <Smile className="h-12 w-12 text-primary" />;
+    if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-12 w-12 text-primary" />;
+    return <Rabbit className="h-12 w-12 text-primary" />;
+  };
+
   if (loading || authLoading) return <LoadingSpinner fullScreen />;
   if (!facility) return null;
 
@@ -173,18 +189,12 @@ export default function FacilityClassesPage() {
             <Card key={cls.id} className="group hover:shadow-xl transition-all duration-300 border-primary/20 hover:border-primary/40 overflow-hidden">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-4">
-                  {cls.imageUrl && (
-                    <div className="relative">
-                      <img
-                        src={cls.imageUrl}
-                        alt={cls.name}
-                        className="h-16 w-16 object-cover rounded-full border-2 border-primary/30 group-hover:border-primary/60 transition-colors"
-                      />
-                      <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                        <Star className="w-3 h-3" />
-                      </div>
+                  <div className="relative">
+                    {classIcon(cls.name)}
+                    <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                      <Star className="w-3 h-3" />
                     </div>
-                  )}
+                  </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Users className="w-4 h-4" />
                     <span>Ages {cls.ageRange}</span>
@@ -252,15 +262,17 @@ export default function FacilityClassesPage() {
               {merchandise.map((item) => (
                 <Card key={item.id} className="group hover:shadow-xl transition-all duration-300 border-primary/20 hover:border-primary/40 overflow-hidden">
                   <CardHeader className="pb-4">
-                    {item.imageUrl && (
-                      <div className="relative mb-4">
+                    <div className="relative mb-4 flex justify-center items-center h-24">
+                      {item.imageUrl ? (
                         <img
                           src={item.imageUrl}
                           alt={item.name}
-                          className="w-full h-48 object-cover rounded-lg"
+                          className="w-full h-24 object-cover rounded-lg"
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <Shirt className="h-16 w-16 text-primary" />
+                      )}
+                    </div>
                     <CardTitle className="text-xl font-bold text-primary text-center group-hover:text-primary/80 transition-colors">
                       {item.name}
                     </CardTitle>

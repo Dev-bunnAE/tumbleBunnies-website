@@ -4,6 +4,7 @@ import { AdminAuthGuard } from '@/components/admin/admin-auth-guard';
 import { AdminHeader } from '@/components/admin/admin-header';
 import { Class, db } from '@/lib/firebase';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { Baby, Dumbbell, Hand, Heart, Music, Palette, PersonStanding, Rabbit, Smile, Sparkles } from "lucide-react";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -32,6 +33,21 @@ export default function AdminClasses() {
     }
   }
 
+  // Helper to pick an icon for each class
+  const classIcon = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-8 w-8 text-primary" />;
+    if (lower.includes("gymnastics")) return <Dumbbell className="h-8 w-8 text-primary" />;
+    if (lower.includes("cheer")) return <Sparkles className="h-8 w-8 text-primary" />;
+    if (lower.includes("karate")) return <Hand className="h-8 w-8 text-primary" />;
+    if (lower.includes("art")) return <Palette className="h-8 w-8 text-primary" />;
+    if (lower.includes("music")) return <Music className="h-8 w-8 text-primary" />;
+    if (lower.includes("yoga")) return <Heart className="h-8 w-8 text-primary" />;
+    if (lower.includes("zumba")) return <Smile className="h-8 w-8 text-primary" />;
+    if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-8 w-8 text-primary" />;
+    return <Rabbit className="h-8 w-8 text-primary" />;
+  };
+
   return (
     <AdminAuthGuard>
       <div>
@@ -53,7 +69,6 @@ export default function AdminClasses() {
                   <tr>
                     <th className="text-left p-2">Name</th>
                     <th className="text-left p-2">Description</th>
-                    <th className="text-left p-2">Skill Level</th>
                     <th className="text-left p-2">Image</th>
                     <th className="text-left p-2">Actions</th>
                   </tr>
@@ -63,13 +78,8 @@ export default function AdminClasses() {
                     <tr key={cls.id} className="border-t">
                       <td className="p-2">{cls.name}</td>
                       <td className="p-2">{cls.description || <span className='text-muted-foreground'>No description</span>}</td>
-                      <td className="p-2">{cls.skillLevel}</td>
                       <td className="p-2">
-                        {cls.imageUrl ? (
-                          <img src={cls.imageUrl} alt={cls.name} className="h-10 w-10 object-cover rounded" />
-                        ) : (
-                          <span className="text-muted-foreground">No image</span>
-                        )}
+                        {classIcon(cls.name)}
                       </td>
                       <td className="p-2 flex gap-2">
                         <button
