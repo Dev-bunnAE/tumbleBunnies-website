@@ -669,6 +669,10 @@ a:hover, a:focus {
   margin-top: auto;
 }
 
+.mb-32 {
+  margin-bottom: 8rem;
+}
+
 .block {
   display: block;
 }
@@ -812,6 +816,10 @@ a:hover, a:focus {
 
 .h-svh {
   height: 100svh;
+}
+
+.h-\[150px\] {
+  height: 150px;
 }
 
 .max-h-96 {
@@ -964,6 +972,10 @@ a:hover, a:focus {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[150px\] {
+  width: 150px;
 }
 
 .min-w-0 {
@@ -1868,6 +1880,10 @@ a:hover, a:focus {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
 }
 
 .text-left {

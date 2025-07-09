@@ -1,17 +1,21 @@
-import { Loader2 } from 'lucide-react';
+import { Rabbit } from 'lucide-react';
 
 type LoadingSpinnerProps = {
   fullScreen?: boolean;
 };
 
+const BunnyIcon = ({ className = "" }) => (
+    <Rabbit className={className} />
+);
+
 export function LoadingSpinner({ fullScreen }: LoadingSpinnerProps) {
   if (fullScreen) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+        <BunnyIcon className="h-24 w-24 text-primary animate-pulse" />
       </div>
     );
   }
 
-  return <Loader2 className="h-8 w-8 animate-spin text-primary" />;
+  return <BunnyIcon className="h-10 w-10 text-primary animate-pulse" />;
 }

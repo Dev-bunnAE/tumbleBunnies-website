@@ -64,15 +64,15 @@ const philosophyPoints = [
 // Helper to pick an icon for each class (copied from admin classes)
 const classIcon = (name: string) => {
   const lower = name.toLowerCase();
-  if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-10 w-10 text-primary" />;
+  if (lower.includes("hip hop dance")) return <PersonStanding className="h-10 w-10 text-primary" />; // Specific check first
+  if (lower.includes("ballet")) return <PersonStanding className="h-10 w-10 text-primary" />;
   if (lower.includes("gymnastics")) return <Dumbbell className="h-10 w-10 text-primary" />;
   if (lower.includes("cheer")) return <Sparkles className="h-10 w-10 text-primary" />;
   if (lower.includes("karate")) return <Hand className="h-10 w-10 text-primary" />;
-  if (lower.includes("art")) return <Palette className="h-10 w-10 text-primary" />;
   if (lower.includes("music")) return <Music className="h-10 w-10 text-primary" />;
   if (lower.includes("yoga")) return <Heart className="h-10 w-10 text-primary" />;
   if (lower.includes("zumba")) return <Smile className="h-10 w-10 text-primary" />;
-  if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-10 w-10 text-primary" />;
+  if (lower.includes("all*sports")) return <Baby className="h-10 w-10 text-primary" />;
   return <Rabbit className="h-10 w-10 text-primary" />;
 };
 
@@ -96,6 +96,24 @@ export default function Home() {
   const [availableClasses, setAvailableClasses] = useState<any[]>([]);
   const [activeForm, setActiveForm] = useState<'login' | 'register'>('login');
   const loginBoxRef = useRef<HTMLDivElement>(null);
+  const [nonagonRadius, setNonagonRadius] = useState(150); // 1. Add state variable for radius
+
+  // 2. Function to calculate radius based on window width
+  const calculateNonagonRadius = () => {
+    if (typeof window !== 'undefined') {
+      const windowWidth = window.innerWidth;
+      // Adjust this logic based on how you want the radius to scale
+      // This is a simple example, tune these values as needed
+      if (windowWidth < 600) {
+        setNonagonRadius(100);
+      } else if (windowWidth < 1024) {
+        setNonagonRadius(220);
+      } else {
+        setNonagonRadius(250);
+      }
+    }
+  };
+
 
   // On mount and when the URL changes, scroll to login box if #register is present
   useEffect(() => {
@@ -118,6 +136,17 @@ export default function Home() {
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  // 3. Use useEffect to handle window resize
+  useEffect(() => {
+    calculateNonagonRadius(); // Calculate initial radius on mount
+
+    window.addEventListener('resize', calculateNonagonRadius);
+
+    return () => {
+      window.removeEventListener('resize', calculateNonagonRadius);
     };
   }, []);
 
@@ -598,7 +627,7 @@ export default function Home() {
         {/* Class Showcase Section */}
         <section className="bg-gradient-to-br from-sky/20 to-peach/20 py-16 md:py-24">
           <div className="container mx-auto px-4 text-center">
-            <div className="text-center mb-12">
+            <div className="text-center mb-32">
               <h2 className="text-3xl font-bold font-headline text-primary">
                 A Class for Every Bunny
               </h2>
@@ -607,25 +636,37 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full flex flex-col items-center justify-center">
-              {availableClasses.length === 0 ? (
+              {availableClasses.length === 0 ? ( // Ensure this outer conditional is kept
                 <div className="text-muted-foreground">No classes available yet.</div>
               ) : (
+                // Render available classes in a Nonagon shape, adding top padding to prevent overlap with text
                 <div className="relative mx-auto my-8" style={{ width: 340, height: 340, maxWidth: '90vw', maxHeight: '90vw' }}>
+                  {/* Rabbit Icon in the center */}
+                  <div
+                    className="absolute"
+                    style={{
+                      left: `calc(50% - 32px)`, // 50% from the left, minus half of icon width (64px / 2 = 32px)
+                      top: `calc(50% - 32px)`, // 50% from the top, minus half of icon height (64px / 2 = 32px)
+                      zIndex: 10, // Ensure it's above the class blocks
+                    }}
+                  >
+                    <Rabbit className="h-16 w-16 text-sky-dark" aria-label="TumbleBunnies Rabbit Icon" /> {/* Adjust size and color as needed */}
+                  </div>
                   {availableClasses.map((cls, idx) => {
                     const count = availableClasses.length;
+                    // Calculate Nonagon vertex positions
                     const angle = (2 * Math.PI * idx) / count;
-                    const radius = 140;
-                    const center = 150;
-                    const x = center + radius * Math.cos(angle) - 45;
-                    const y = center + radius * Math.sin(angle) - 45;
+                    const radius = nonagonRadius; // Use dynamic radius
+                    const center = 150; // Center of the container
+                    const x = center + radius * Math.cos(angle) - 75; // Subtract half of block width (150/2)
+                    const y = center + radius * Math.sin(angle) - 75; // Subtract half of block height (150/2)
                     // Pick a color from the palette for each card
                     const borderColors = ['border-bubblegum-dark', 'border-lemon-dark', 'border-aqua-dark', 'border-sky-dark', 'border-peach-dark'];
                     const borderColor = borderColors[idx % borderColors.length];
                     return (
                       <div
                         key={cls.id}
-                        className={`absolute flex flex-col items-center justify-center w-[90px] h-[90px] p-2 bg-card rounded-xl shadow-xl transition-transform duration-200 hover:-translate-y-1 hover:scale-105 border-4 ${borderColor}`}
-                        style={{ left: x, top: y }}
+                        className={`absolute flex flex-col items-center justify-center w-[150px] h-[150px] p-2 bg-card rounded-xl shadow-xl transition-transform duration-200 hover:-translate-y-1 hover:scale-105 border-4 ${borderColor}`} style={{ left: `${x}px`, top: `${y}px` }} // Use calculated x and y and add pt-16 class
                       >
                         {cls.imageUrl ? (
                           <Image src={cls.imageUrl} alt={cls.name} width={40} height={40} className="h-10 w-10 object-cover rounded-lg border-2 border-primary bg-white shadow-md" />
