@@ -10,8 +10,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Class, db, Facility, Merchandise, useAuth } from "@/lib/firebase";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { Baby, Clock, Dumbbell, Heart, Music, Palette, PersonStanding, Rabbit, Shirt, Smile, Sparkles, Star, Sword, Users, Wand } from "lucide-react";
+import Image from 'next/image';
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; // Added for React.Fragment
 
 export default function FacilityClassesPage() {
   const router = useRouter();
@@ -153,17 +154,17 @@ export default function FacilityClassesPage() {
   // Helper to pick an icon for each class
   const classIcon = (name: string) => {
     const lower = name.toLowerCase();
-    if (lower.includes("manifestation")) return <Wand className="h-12 w-12 text-primary" />;
-    if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-12 w-12 text-primary" />;
-    if (lower.includes("gymnastics")) return <Dumbbell className="h-12 w-12 text-primary" />;
-    if (lower.includes("cheer")) return <Sparkles className="h-12 w-12 text-primary" />;
-    if (lower.includes("karate")) return <Sword className="h-12 w-12 text-primary" />;
-    if (lower.includes("art")) return <Palette className="h-12 w-12 text-primary" />;
-    if (lower.includes("music")) return <Music className="h-12 w-12 text-primary" />;
-    if (lower.includes("yoga")) return <Heart className="h-12 w-12 text-primary" />;
-    if (lower.includes("zumba")) return <Smile className="h-12 w-12 text-primary" />;
-    if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-12 w-12 text-primary" />;
-    return <Rabbit className="h-12 w-12 text-primary" />;
+    if (lower.includes("manifestation")) return <Wand className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("gymnastics")) return <Dumbbell className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("cheer")) return <Sparkles className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("karate")) return <Sword className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("art")) return <Palette className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("music")) return <Music className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("yoga")) return <Heart className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("zumba")) return <Smile className="h-12 w-12 text-primary" aria-label={name} />;
+    if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-12 w-12 text-primary" aria-label={name} />;
+    return <Rabbit className="h-12 w-12 text-primary" aria-hidden="true" />;
   };
 
   if (loading || authLoading) return <LoadingSpinner fullScreen />;
@@ -186,63 +187,84 @@ export default function FacilityClassesPage() {
         {/* Classes Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {classes.map((cls) => (
-            <Card key={cls.id} className="group hover:shadow-xl transition-all duration-300 border-primary/20 hover:border-primary/40 overflow-hidden">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="relative">
-                    {classIcon(cls.name)}
-                    <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                      <Star className="w-3 h-3" />
+            <React.Fragment key={cls.id}>
+              <Card className="group hover:shadow-xl transition-all duration-300 border-primary/20 hover:border-primary/40 overflow-hidden">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="relative">
+                      {cls.imageUrl ? (
+                        <Image src={cls.imageUrl} alt={cls.name} width={90} height={90} className="h-10 w-10 object-cover rounded-lg border-2 border-primary bg-white shadow-md" />
+                      ) : (
+                        classIcon(cls.name)
+                      )}
+                      <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                        <Star className="w-3 h-3" />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Users className="w-4 h-4" />
+                      <span>Ages {cls.ageRange}</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="w-4 h-4" />
-                    <span>Ages {cls.ageRange}</span>
-                  </div>
-                </div>
-                <CardTitle className="text-2xl font-bold text-primary text-center group-hover:text-primary/80 transition-colors">
-                  {cls.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="space-y-3">
-                  {(classToSessions[cls.id] || []).map((session) => {
-                    const price = facility.pricing?.[cls.id]?.[session];
-                    if (price == null) return null;
-                    return (
-                      <div
-                        key={session}
-                        className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-4 border border-primary/20 hover:border-primary/40 transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-primary" />
-                            <span className="font-semibold text-primary">
-                              {session} week{session > 1 ? "s" : ""}
-                            </span>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-primary">
-                              ${price.toFixed(2)}
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              per session
-                            </div>
-                          </div>
-                        </div>
-                        <Button
-                          onClick={() => handleAddToCart(cls, session, price)}
-                          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
-                          size="sm"
+                  <CardTitle className="text-2xl font-bold text-primary text-center group-hover:text-primary/80 transition-colors">
+                    {cls.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="space-y-3">
+                    {(classToSessions[cls.id] || []).map((session) => {
+                      const price = facility.pricing?.[cls.id]?.[session];
+                      if (price == null) return null;
+                      return (
+                        <div
+                          key={session}
+                          className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-4 border border-primary/20 hover:border-primary/40 transition-all duration-200"
                         >
-                          Add to Cart
-                        </Button>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-primary" />
+                              <span className="font-semibold text-primary">
+                                {session} week{session > 1 ? "s" : ""}
+                              </span>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-primary">
+                                ${price.toFixed(2)}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                per session
+                              </div>
+                            </div>
+                          </div>
+                          <Button
+                            onClick={() => handleAddToCart(cls, session, price)}
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                            size="sm"
+                          >
+                            Add to Cart
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+              <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Event",
+                  "name": cls.name,
+                  "description": cls.description || 'TumbleBunnies class',
+                  "startDate": '2024-09-01T09:00:00-05:00',
+                  "location": {
+                    "@type": "Place",
+                    "name": facility?.name || 'TumbleBunnies Facility',
+                    "address": facility?.address || 'TumbleBunnies, Your City, USA'
+                  },
+                  "image": cls.imageUrl || undefined
+                })
+              }} />
+            </React.Fragment>
           ))}
         </div>
 
@@ -264,13 +286,9 @@ export default function FacilityClassesPage() {
                   <CardHeader className="pb-4">
                     <div className="relative mb-4 flex justify-center items-center h-24">
                       {item.imageUrl ? (
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="w-full h-24 object-cover rounded-lg"
-                        />
+                        <Image src={item.imageUrl} alt={item.name} width={96} height={96} className="w-full h-24 object-cover rounded-lg" />
                       ) : (
-                        <Shirt className="h-16 w-16 text-primary" />
+                        <Shirt className="h-16 w-16 text-primary" aria-hidden="true" />
                       )}
                     </div>
                     <CardTitle className="text-xl font-bold text-primary text-center group-hover:text-primary/80 transition-colors">

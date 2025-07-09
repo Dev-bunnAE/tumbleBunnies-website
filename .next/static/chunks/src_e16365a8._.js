@@ -334,6 +334,10 @@ const navLinks = [
         label: "Classes"
     },
     {
+        href: "/admin/merchandise",
+        label: "Merchandise"
+    },
+    {
         href: "/admin/orders",
         label: "Orders"
     },
@@ -366,7 +370,7 @@ function AdminHeader() {
                                 children: "Admin"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                                lineNumber: 32,
+                                lineNumber: 33,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -377,18 +381,18 @@ function AdminHeader() {
                                         children: link.label
                                     }, link.href, false, {
                                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 38,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                                lineNumber: 35,
+                                lineNumber: 36,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 31,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -403,17 +407,17 @@ function AdminHeader() {
                                         "aria-label": "User Account",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {}, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 51,
+                                            lineNumber: 52,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 51,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                    lineNumber: 49,
+                                    lineNumber: 50,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuContent"], {
@@ -423,12 +427,12 @@ function AdminHeader() {
                                             children: user?.email || "Admin"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 55,
+                                            lineNumber: 56,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 57,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -439,37 +443,37 @@ function AdminHeader() {
                                                     className: "h-4 w-4 mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 59,
                                                     columnNumber: 17
                                                 }, this),
                                                 " Logout"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 58,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 55,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                            lineNumber: 48,
+                            lineNumber: 49,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 47,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                lineNumber: 30,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -480,18 +484,18 @@ function AdminHeader() {
                         children: link.label
                     }, link.href, false, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 67,
+                        lineNumber: 68,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                lineNumber: 65,
+                lineNumber: 66,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/admin/admin-header.tsx",
-        lineNumber: 29,
+        lineNumber: 30,
         columnNumber: 5
     }, this);
 }
@@ -666,12 +670,27 @@ function AdminRegistrationsPage() {
             setLoading(false);
         }
     }
-    async function handleDelete(id) {
+    async function handleDelete(id, userId) {
         if (!window.confirm("Are you sure you want to delete this registration? This cannot be undone.")) return;
         setDeletingId(id);
         try {
             await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["deleteDoc"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["doc"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$firebase$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "registrations", id));
             setRegistrations((registrations)=>registrations.filter((r)=>r.id !== id));
+            if (userId) {
+                const res = await fetch("/api/admin/delete-user", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        uid: userId
+                    })
+                });
+                if (!res.ok) {
+                    const data = await res.json();
+                    alert("Registration deleted, but failed to delete user: " + (data.error || res.statusText));
+                }
+            }
         } catch (err) {
             alert("Failed to delete registration.");
         } finally{
@@ -682,7 +701,7 @@ function AdminRegistrationsPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$admin$2f$admin$2d$header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AdminHeader"], {}, void 0, false, {
                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                lineNumber: 50,
+                lineNumber: 61,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -696,12 +715,12 @@ function AdminRegistrationsPage() {
                                 children: "All Registrations"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                lineNumber: 54,
+                                lineNumber: 65,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                            lineNumber: 53,
+                            lineNumber: 64,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -710,21 +729,21 @@ function AdminRegistrationsPage() {
                                 children: "Loading..."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                lineNumber: 58,
+                                lineNumber: 69,
                                 columnNumber: 15
                             }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "text-center text-destructive py-8",
                                 children: error
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                lineNumber: 60,
+                                lineNumber: 71,
                                 columnNumber: 15
                             }, this) : registrations.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "text-center py-8 text-muted-foreground",
                                 children: "No registrations found."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                lineNumber: 62,
+                                lineNumber: 73,
                                 columnNumber: 15
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "overflow-x-auto",
@@ -740,7 +759,7 @@ function AdminRegistrationsPage() {
                                                         children: "Parent Name"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 68,
+                                                        lineNumber: 79,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -748,7 +767,7 @@ function AdminRegistrationsPage() {
                                                         children: "Email"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 69,
+                                                        lineNumber: 80,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -756,7 +775,7 @@ function AdminRegistrationsPage() {
                                                         children: "Facility"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 70,
+                                                        lineNumber: 81,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -764,7 +783,7 @@ function AdminRegistrationsPage() {
                                                         children: "Children"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 71,
+                                                        lineNumber: 82,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -772,7 +791,7 @@ function AdminRegistrationsPage() {
                                                         children: "Created"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 72,
+                                                        lineNumber: 83,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -780,18 +799,18 @@ function AdminRegistrationsPage() {
                                                         children: "Actions"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                        lineNumber: 73,
+                                                        lineNumber: 84,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                lineNumber: 67,
+                                                lineNumber: 78,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                            lineNumber: 66,
+                                            lineNumber: 77,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -803,7 +822,7 @@ function AdminRegistrationsPage() {
                                                             children: reg.parentName
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 79,
+                                                            lineNumber: 90,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -811,7 +830,7 @@ function AdminRegistrationsPage() {
                                                             children: reg.parentEmail
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 80,
+                                                            lineNumber: 91,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -819,7 +838,7 @@ function AdminRegistrationsPage() {
                                                             children: reg.facilityName || reg.facilityId
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 81,
+                                                            lineNumber: 92,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -827,7 +846,7 @@ function AdminRegistrationsPage() {
                                                             children: Array.isArray(reg.children) ? reg.children.join(", ") : reg.childName || "-"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 82,
+                                                            lineNumber: 93,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -835,7 +854,7 @@ function AdminRegistrationsPage() {
                                                             children: reg.createdAt ? new Date(reg.createdAt).toLocaleString() : "-"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 87,
+                                                            lineNumber: 98,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -849,67 +868,67 @@ function AdminRegistrationsPage() {
                                                                         children: "Edit"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                                        lineNumber: 92,
+                                                                        lineNumber: 103,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                                    lineNumber: 91,
+                                                                    lineNumber: 102,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                     size: "sm",
                                                                     variant: "destructive",
-                                                                    onClick: ()=>handleDelete(reg.id),
+                                                                    onClick: ()=>handleDelete(reg.id, reg.userId),
                                                                     disabled: deletingId === reg.id,
                                                                     children: deletingId === reg.id ? "Deleting..." : "Delete"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                                    lineNumber: 94,
+                                                                    lineNumber: 105,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                            lineNumber: 90,
+                                                            lineNumber: 101,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, reg.id, true, {
                                                     fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                                    lineNumber: 78,
+                                                    lineNumber: 89,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                            lineNumber: 76,
+                                            lineNumber: 87,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 76,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                                lineNumber: 64,
+                                lineNumber: 75,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/admin/registrations/page.tsx",
-                            lineNumber: 56,
+                            lineNumber: 67,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/admin/registrations/page.tsx",
-                    lineNumber: 52,
+                    lineNumber: 63,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/registrations/page.tsx",
-                lineNumber: 51,
+                lineNumber: 62,
                 columnNumber: 7
             }, this)
         ]

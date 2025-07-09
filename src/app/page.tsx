@@ -97,23 +97,28 @@ export default function Home() {
   const [activeForm, setActiveForm] = useState<'login' | 'register'>('login');
   const loginBoxRef = useRef<HTMLDivElement>(null);
 
-  // On mount and when the URL changes, check for ?tab=login or ?tab=register
+  // On mount and when the URL changes, scroll to login box if #register is present
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash;
-      const params = new URLSearchParams(window.location.search);
-      let tab: 'login' | 'register' | null = null;
-      if (hash.includes('register')) {
-        if (params.get('tab') === 'register') tab = 'register';
-        else if (params.get('tab') === 'login') tab = 'login';
+    const handleHashChange = () => {
+      if (typeof window !== 'undefined') {
+        const hash = window.location.hash;
+        if (hash === '#register') {
+          setTimeout(() => {
+            loginBoxRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        }
       }
-      if (tab) {
-        setActiveForm(tab);
-        setTimeout(() => {
-          loginBoxRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 100);
-      }
-    }
+    };
+
+    // Handle initial load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   useEffect(() => {

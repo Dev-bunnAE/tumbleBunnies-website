@@ -1,4 +1,4 @@
-import type {Config} from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 
 export default {
   darkMode: ['class'],
@@ -70,6 +70,26 @@ export default {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
+        },
+        bubblegum: {
+          DEFAULT: '#ffb7e5', // pastel pink
+          dark: '#ff6fcf',
+        },
+        lemon: {
+          DEFAULT: '#fff6a3', // pastel yellow
+          dark: '#ffe066',
+        },
+        aqua: {
+          DEFAULT: '#a7f6ff', // pastel teal
+          dark: '#4be3f7',
+        },
+        sky: {
+          DEFAULT: '#b3d8ff', // pastel blue
+          dark: '#5bbcff',
+        },
+        peach: {
+          DEFAULT: '#ffd1b3', // pastel orange
+          dark: '#ffb07c',
         },
       },
       borderRadius: {

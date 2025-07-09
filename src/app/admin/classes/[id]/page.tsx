@@ -6,6 +6,7 @@ import { Class, db } from '@/lib/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -246,7 +247,7 @@ export default function EditClass() {
                   <PhotoCamera className="inline mr-2" /> Upload Image
                 </button>
                 {form.imageUrl && (
-                  <img src={form.imageUrl} alt="Class" className="h-16 w-16 object-cover rounded" />
+                  <Image src={form.imageUrl} alt="Class image" width={64} height={64} className="h-16 w-16 object-cover rounded" />
                 )}
               </div>
               {error && <p className="text-destructive text-sm mt-2">{error}</p>}
