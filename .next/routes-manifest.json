@@ -1,0 +1,188 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "dynamicRoutes": [
+    {
+      "page": "/admin/classes/[id]",
+      "regex": "^/admin/classes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/classes/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/facilities/[id]",
+      "regex": "^/admin/facilities/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/facilities/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/merchandise/[id]",
+      "regex": "^/admin/merchandise/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/merchandise/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/registrations/[id]",
+      "regex": "^/admin/registrations/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/registrations/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/classes/[facilityId]",
+      "regex": "^/classes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPfacilityId": "nxtPfacilityId"
+      },
+      "namedRegex": "^/classes/(?<nxtPfacilityId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/register/[facilityId]",
+      "regex": "^/register/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPfacilityId": "nxtPfacilityId"
+      },
+      "namedRegex": "^/register/(?<nxtPfacilityId>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/account",
+      "regex": "^/account(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/account(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/classes",
+      "regex": "^/admin/classes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/classes(?:/)?$"
+    },
+    {
+      "page": "/admin/classes/new",
+      "regex": "^/admin/classes/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/classes/new(?:/)?$"
+    },
+    {
+      "page": "/admin/facilities",
+      "regex": "^/admin/facilities(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/facilities(?:/)?$"
+    },
+    {
+      "page": "/admin/facilities/new",
+      "regex": "^/admin/facilities/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/facilities/new(?:/)?$"
+    },
+    {
+      "page": "/admin/merchandise",
+      "regex": "^/admin/merchandise(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/merchandise(?:/)?$"
+    },
+    {
+      "page": "/admin/merchandise/new",
+      "regex": "^/admin/merchandise/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/merchandise/new(?:/)?$"
+    },
+    {
+      "page": "/admin/orders",
+      "regex": "^/admin/orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/orders(?:/)?$"
+    },
+    {
+      "page": "/admin/registrations",
+      "regex": "^/admin/registrations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/registrations(?:/)?$"
+    },
+    {
+      "page": "/checkout",
+      "regex": "^/checkout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/checkout(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/orders",
+      "regex": "^/orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/orders(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  },
+  "rewrites": []
+}

@@ -1,0 +1,33 @@
+{
+  "app/admin/classes/[id]/page.tsx -> @mui/icons-material/PhotoCamera": {
+    "id": 7706,
+    "files": [
+      "static/chunks/998-90be142fdb028f03.js",
+      "static/chunks/706.3b39bc73e84a9da6.js"
+    ]
+  },
+  "app/admin/classes/[id]/page.tsx -> @mui/material/CircularProgress": {
+    "id": 156,
+    "files": [
+      "static/chunks/998-90be142fdb028f03.js",
+      "static/chunks/671-0ac3037b439dd9d3.js",
+      "static/chunks/140.e65d89794671dd50.js"
+    ]
+  },
+  "app/admin/classes/[id]/page.tsx -> @mui/material/Slider": {
+    "id": 8667,
+    "files": [
+      "static/chunks/998-90be142fdb028f03.js",
+      "static/chunks/660-80d2b0b832e09505.js",
+      "static/chunks/48.a44b41ae5c8161ef.js"
+    ]
+  },
+  "app/register/[facilityId]/page.tsx -> @/lib/firebase": {
+    "id": 2298,
+    "files": []
+  },
+  "app/register/[facilityId]/page.tsx -> firebase/auth": {
+    "id": 3004,
+    "files": []
+  }
+}
