@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/facilities", label: "Facilities" },
   { href: "/admin/classes", label: "Classes" },
+  { href: "/admin/merchandise", label: "Merchandise" },
   { href: "/admin/orders", label: "Orders" },
   { href: "/admin/registrations", label: "Registrations" },
 ];

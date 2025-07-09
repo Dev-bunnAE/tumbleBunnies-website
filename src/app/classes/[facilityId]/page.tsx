@@ -7,8 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChildSelectDialog } from "@/components/ui/child-select-dialog";
 import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
-import { Class, db, Facility, useAuth } from "@/lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { Class, db, Facility, Merchandise, useAuth } from "@/lib/firebase";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { Clock, Star, Users } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +20,7 @@ export default function FacilityClassesPage() {
   const { user, loading: authLoading, getRegistrationAsync } = useAuth();
   const [facility, setFacility] = useState<Facility | null>(null);
   const [classes, setClasses] = useState<Class[]>([]);
+  const [merchandise, setMerchandise] = useState<Merchandise[]>([]);
   const [loading, setLoading] = useState(true);
   const [registration, setRegistration] = useState<any>(null);
   const { addItem } = useCart();
@@ -60,6 +61,15 @@ export default function FacilityClassesPage() {
           classSnaps
             .filter((snap) => snap.exists())
             .map((snap) => ({ id: snap.id, ...snap.data() } as Class))
+            .sort((a, b) => a.name.localeCompare(b.name))
+        );
+
+        // Fetch enabled merchandise
+        const merchQuery = query(collection(db, "merchandise"), where("enabled", "==", true));
+        const merchSnap = await getDocs(merchQuery);
+        setMerchandise(
+          merchSnap.docs
+            .map((doc) => ({ id: doc.id, ...doc.data() } as Merchandise))
             .sort((a, b) => a.name.localeCompare(b.name))
         );
       } catch (error) {
@@ -111,6 +121,21 @@ export default function FacilityClassesPage() {
     toast({
       title: "Added to Cart",
       description: `${selectedClass.cls.name} (${selectedClass.session} week${selectedClass.session > 1 ? "s" : ""}) added to your cart for ${childName}.`,
+    });
+  };
+
+  const handleAddMerchandiseToCart = (item: Merchandise) => {
+    addItem({
+      id: `merch-${item.id}`,
+      name: item.name,
+      price: item.price,
+      childName: '', // Merchandise doesn't need child assignment
+      classId: '', // Not a class
+      sessionLength: 0, // Not a session
+    });
+    toast({
+      title: "Added to Cart",
+      description: `${item.name} added to your cart.`,
     });
   };
 
@@ -198,6 +223,81 @@ export default function FacilityClassesPage() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Merchandise Section */}
+        {merchandise.length > 0 && (
+          <div className="mt-16">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-headline font-bold text-primary mb-4">
+                TumbleBunnies Merchandise
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Show your love for TumbleBunnies with our exclusive merchandise!
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {merchandise.map((item) => (
+                <Card key={item.id} className="group hover:shadow-xl transition-all duration-300 border-primary/20 hover:border-primary/40 overflow-hidden">
+                  <CardHeader className="pb-4">
+                    {item.imageUrl && (
+                      <div className="relative mb-4">
+                        <img
+                          src={item.imageUrl}
+                          alt={item.name}
+                          className="w-full h-48 object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
+                    <CardTitle className="text-xl font-bold text-primary text-center group-hover:text-primary/80 transition-colors">
+                      {item.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground text-center">
+                        {item.description}
+                      </p>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-primary mb-3">
+                          ${item.price.toFixed(2)}
+                        </div>
+                        <Button
+                          onClick={() => handleAddMerchandiseToCart(item)}
+                          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                          size="sm"
+                        >
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Checkout Button Section */}
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl p-8 border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <div className="mb-6">
+              <h3 className="text-2xl font-headline font-bold text-primary mb-2">
+                Ready to Checkout?
+              </h3>
+              <p className="text-muted-foreground text-lg">
+                Review your cart and complete your purchase
+              </p>
+            </div>
+            <Button
+              onClick={() => router.push('/checkout')}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              size="lg"
+            >
+              🛒 Go to Checkout
+            </Button>
+          </div>
         </div>
 
         {/* Empty State */}

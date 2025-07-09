@@ -82,6 +82,7 @@ export interface Class {
 export interface Order {
   id: string;
   parentName: string;
+  parentEmail: string;
   totalAmount: number;
   status: 'pending' | 'paid' | 'refunded';
   createdAt: number;
@@ -91,6 +92,16 @@ export interface Order {
     sessionLength: number;
     price: number;
   }>;
+}
+
+export interface Merchandise {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl?: string;
+  enabled: boolean;
+  createdAt: number;
 }
 
 interface AuthContextType {

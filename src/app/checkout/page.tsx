@@ -4,12 +4,14 @@ import { StorefrontHeader } from "@/components/storefront-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/context/cart-context";
+import { useAuth } from "@/lib/firebase";
 import { CreditCard, ShoppingCart, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CheckoutPage() {
   const { items, removeItem, clearCart } = useCart();
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [card, setCard] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -21,13 +23,63 @@ export default function CheckoutPage() {
   async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
     setProcessing(true);
-    // Simulate payment processing
-    setTimeout(() => {
+    
+    try {
+      console.log('Starting checkout process...');
+      console.log('User:', user?.email);
+      console.log('Items:', items);
+      console.log('Total:', total);
+      
+      // Prepare order data
+      const orderData = {
+        parentName: name,
+        parentEmail: user?.email || '',
+        totalAmount: total,
+        items: items.map(item => ({
+          classId: item.classId || '',
+          childName: item.childName || '',
+          sessionLength: item.sessionLength || 0,
+          price: item.price
+        }))
+      };
+
+      console.log('Order data to save:', orderData);
+      
+      // Save order via API route
+      const response = await fetch('/api/orders/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create order');
+      }
+
+      const result = await response.json();
+      console.log('Order saved successfully with ID:', result.orderId);
+
+      // Simulate payment processing
+      setTimeout(() => {
+        setProcessing(false);
+        setSuccess(true);
+        clearCart();
+        setTimeout(() => router.push("/orders"), 2000);
+      }, 1500);
+    } catch (error: any) {
+      console.error('Error saving order:', error);
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        stack: error.stack
+      });
       setProcessing(false);
-      setSuccess(true);
-      clearCart();
-      setTimeout(() => router.push("/"), 2000);
-    }, 1500);
+      // Show error to user
+      alert(`Error saving order: ${error.message}`);
+    }
   }
 
   if (success) {
@@ -39,8 +91,8 @@ export default function CheckoutPage() {
             <CardTitle className="text-2xl font-bold text-primary">Thank you!</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-muted-foreground">Your order has been placed. You'll receive a confirmation email soon.</p>
-            <p className="text-sm text-muted-foreground">Redirecting to home...</p>
+            <p className="mb-4 text-muted-foreground">Your order has been placed successfully. You'll receive a confirmation email soon.</p>
+            <p className="text-sm text-muted-foreground">Redirecting to your orders...</p>
           </CardContent>
         </Card>
       </main>

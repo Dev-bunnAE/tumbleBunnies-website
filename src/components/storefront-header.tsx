@@ -45,6 +45,11 @@ export function StorefrontHeader() {
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const handleCartClick = () => {
+    console.log('Cart clicked, navigating to checkout...');
+    router.push('/checkout');
+  };
+
   return (
     <header className="bg-background/95 backdrop-blur-sm sticky top-0 z-40 border-b shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
@@ -68,9 +73,9 @@ export function StorefrontHeader() {
           <Button
             variant="ghost"
             size="icon"
-            className="relative"
+            className="relative cursor-pointer"
             aria-label="Shopping Cart"
-            onClick={() => router.push("/checkout")}
+            onClick={handleCartClick}
           >
             <ShoppingCart className="h-5 w-5" />
             {getCartItemCount() > 0 && (
