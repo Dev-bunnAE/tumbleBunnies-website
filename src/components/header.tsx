@@ -56,7 +56,7 @@ export function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" aria-label="User Account">
-                    <User />
+                    <User className="text-primary" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -72,10 +72,10 @@ export function Header() {
           ) : (
             <>
               <Button variant="ghost" asChild>
-                <Link href="/#register">Login</Link>
+                <Link href="/#register?tab=login">Login</Link>
               </Button>
               <Button asChild>
-                <Link href="/#register">Register</Link>
+                <Link href="/#register?tab=register">Register</Link>
               </Button>
             </>
           )}

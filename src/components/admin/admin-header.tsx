@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/lib/firebase";
-import { LogOut, User } from "lucide-react";
+import { FolderOpen, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -27,11 +27,12 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="bg-primary/90 text-primary-foreground sticky top-0 z-50 shadow border-b">
+    <header className="bg-gradient-to-r from-bubblegum via-sky to-lemon text-primary-foreground sticky top-0 z-50 shadow border-b">
       <nav className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center gap-8">
-          <Link href="/admin" className="font-headline text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity">
+          <Link href="/admin" className="font-headline text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity relative">
             Admin
+            <span className="block h-1 w-10 bg-bubblegum-dark rounded-full absolute left-1/2 -translate-x-1/2 -bottom-2"></span>
           </Link>
           <div className="hidden md:flex gap-4">
             {navLinks.map(link => (
@@ -49,12 +50,17 @@ export function AdminHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="User Account">
-                <User />
+                <User className="text-primary" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{user?.email || "Admin"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">
+                  <FolderOpen className="h-4 w-4 mr-2" /> Google Drive
+                </a>
+              </DropdownMenuItem>
               <DropdownMenuItem onSelect={handleLogout} className="text-destructive focus:text-destructive">
                 <LogOut className="h-4 w-4 mr-2" /> Logout
               </DropdownMenuItem>
@@ -68,7 +74,7 @@ export function AdminHeader() {
           <Link
             key={link.href}
             href={link.href}
-            className={`flex-1 text-center py-2 rounded-md font-medium text-sm transition-colors ${pathname === link.href ? "bg-primary-foreground text-primary" : "hover:bg-primary-foreground/10"}`}
+            className={`flex-1 text-center py-2 rounded-md font-medium text-sm transition-colors ${pathname === link.href ? "bg-primary-foreground text-primary" : "text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"}`}
           >
             {link.label}
           </Link>
