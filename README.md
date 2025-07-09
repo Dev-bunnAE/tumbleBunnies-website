@@ -1,35 +1,85 @@
-# Firebase Studio
+# TumbleBunnies
 
-This is a NextJS starter in Firebase Studio.
+A playful, kid-friendly web app for booking and managing children's gymnastics, dance, yoga, and activity classes. Built for both parents and administrators, TumbleBunnies features a modern, accessible, and mobile-first design with a focus on fun and usability.
 
-To get started, take a look at src/app/page.tsx.
+## Features
+- Beautiful, pastel-themed homepage with mascot and class showcase
+- Secure parent registration, login, and account management
+- Class browsing, registration, and cart/checkout flow
+- Admin dashboard for managing facilities, classes, orders, registrations, attendance, and merchandise
+- Merchandise storefront with cart integration
+- Image upload and optimization for classes and merchandise
+- Accessibility and SEO best practices throughout
+- Responsive design for all devices
 
-## Backing Up Your Project
+## Tech Stack
+- **Next.js** (App Router, TypeScript)
+- **React** (functional components, hooks)
+- **Tailwind CSS** (custom pastel theme)
+- **Firebase** (Auth, Firestore, Storage)
+- **Lucide Icons** (playful, activity-themed icons)
+- **Vercel** (recommended for deployment)
 
-It's a great practice to back up your work using version control. The standard way to do this is with Git and a remote repository provider like GitHub. Here are the basic steps to get your project backed up:
+## Getting Started
 
-1.  **Initialize Git:** If you haven't already, open a terminal in your project's root directory and run:
-    ```bash
-    git init
-    ```
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or yarn
+- Firebase project (for Auth, Firestore, Storage)
 
-2.  **Add Files:** Add all your project files to the staging area.
-    ```bash
-    git add .
-    ```
+### Installation
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Dev-bunnAE/tumblebunnies-website.git
+   cd tumbleBunnies
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. Set up your Firebase credentials:
+   - Copy your Firebase config to `src/lib/firebase.tsx` as needed.
+   - Set up Firestore and Storage rules as per `firebase-storage-rules.txt`.
+4. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+5. Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-3.  **Commit Changes:** Create a "snapshot" of your project's current state.
-    ```bash
-    git commit -m "Initial commit of TumbleBunnies project"
-    ```
+## Project Structure
+- `src/app/` — Main Next.js app pages and routes
+- `src/components/` — Reusable UI and layout components
+- `src/lib/` — Firebase and utility functions
+- `src/context/` — React context providers (e.g., cart)
+- `src/hooks/` — Custom React hooks
+- `public/` — Static assets (images, icons, etc.)
 
-4.  **Create a GitHub Repository:** Go to [GitHub](https://github.com/new) and create a new, empty repository. Do not initialize it with a README or .gitignore file, as you already have those.
+## SEO & Performance
+- Dynamic meta tags, Open Graph, and Twitter cards
+- JSON-LD structured data for organization, products, and events
+- Sitemap.xml and robots.txt auto-generated
+- next/image for image optimization
+- Font loading optimized with `font-display: swap`
+- Code splitting and dynamic imports for heavy components
+- Tailwind CSS purges unused styles in production
 
-5.  **Link and Push:** Copy the commands from GitHub to link your local repository to the remote one and push your code. They will look something like this:
-    ```bash
-    git remote add origin https://github.com/your-username/your-repo-name.git
-    git branch -M main
-    git push -u origin main
-    ```
+## Accessibility
+- All images and icons have descriptive alt text or ARIA labels
+- Keyboard navigation and semantic HTML throughout
+- Color contrast and focus states for all interactive elements
 
-Now your code is safely backed up on GitHub! You can continue to "commit" and "push" your changes as you make progress.
+## Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the repo
+2. Create your feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a pull request
+
+## License
+[MIT](LICENSE)

@@ -2,14 +2,23 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  LogIn,
-  Mail,
-  Sparkles,
-  UserPlus
+    Baby,
+    Dumbbell,
+    Hand,
+    Heart,
+    LogIn,
+    Mail,
+    Music,
+    Palette,
+    PersonStanding,
+    Rabbit,
+    Smile,
+    Sparkles,
+    UserPlus,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -17,22 +26,20 @@ import { Header } from '@/components/header';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { Button } from '@/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader
 } from '@/components/ui/card';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { auth, db, useAuth } from '@/lib/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
@@ -54,6 +61,21 @@ const philosophyPoints = [
   'Experienced and caring instructors.',
 ];
 
+// Helper to pick an icon for each class (copied from admin classes)
+const classIcon = (name: string) => {
+  const lower = name.toLowerCase();
+  if (lower.includes("ballet") || lower.includes("dance") || lower.includes("hip hop")) return <PersonStanding className="h-10 w-10 text-primary" />;
+  if (lower.includes("gymnastics")) return <Dumbbell className="h-10 w-10 text-primary" />;
+  if (lower.includes("cheer")) return <Sparkles className="h-10 w-10 text-primary" />;
+  if (lower.includes("karate")) return <Hand className="h-10 w-10 text-primary" />;
+  if (lower.includes("art")) return <Palette className="h-10 w-10 text-primary" />;
+  if (lower.includes("music")) return <Music className="h-10 w-10 text-primary" />;
+  if (lower.includes("yoga")) return <Heart className="h-10 w-10 text-primary" />;
+  if (lower.includes("zumba")) return <Smile className="h-10 w-10 text-primary" />;
+  if (lower.includes("all*sports") || lower.includes("sports")) return <Baby className="h-10 w-10 text-primary" />;
+  return <Rabbit className="h-10 w-10 text-primary" />;
+};
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [authActionLoading, setAuthActionLoading] = useState(false);
@@ -72,6 +94,27 @@ export default function Home() {
   const router = useRouter();
   const { toast } = useToast();
   const [availableClasses, setAvailableClasses] = useState<any[]>([]);
+  const [activeForm, setActiveForm] = useState<'login' | 'register'>('login');
+  const loginBoxRef = useRef<HTMLDivElement>(null);
+
+  // On mount and when the URL changes, check for ?tab=login or ?tab=register
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      const params = new URLSearchParams(window.location.search);
+      let tab: 'login' | 'register' | null = null;
+      if (hash.includes('register')) {
+        if (params.get('tab') === 'register') tab = 'register';
+        else if (params.get('tab') === 'login') tab = 'login';
+      }
+      if (tab) {
+        setActiveForm(tab);
+        setTimeout(() => {
+          loginBoxRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     async function checkUserStatus() {
@@ -214,10 +257,7 @@ export default function Home() {
             description: 'You must register before logging in. Please use the registration tab.',
           });
           // Switch to the registration tab
-          const registerTab = document.querySelector('[data-state="register"]');
-          if (registerTab) {
-            (registerTab as HTMLElement).click();
-          }
+          setActiveForm('register');
           setAuthActionLoading(false);
           return;
         }
@@ -282,17 +322,18 @@ export default function Home() {
       <Header />
       <main className="flex-grow flex flex-col items-center justify-center">
         {/* Hero Section */}
-        <section className="relative flex flex-col items-center justify-center w-full min-h-[350px] md:min-h-[420px] bg-gradient-to-b from-primary/10 to-background py-10 md:py-20 overflow-hidden">
+        <section className="relative flex flex-col items-center justify-center w-full min-h-[350px] md:min-h-[420px] bg-gradient-to-b from-bubblegum/30 via-lemon/30 via-sky/30 to-peach/30 py-10 md:py-20 overflow-hidden">
           <div className="container mx-auto px-4 flex flex-col items-center justify-center text-center relative z-10">
-            <h1 className="font-headline text-5xl md:text-6xl font-extrabold text-primary drop-shadow-lg mb-4 animate-bounce-slow">
+            <h1 className="font-headline text-5xl md:text-6xl font-extrabold mb-4 animate-bounce-slow bg-gradient-to-r from-bubblegum-dark via-lemon-dark via-aqua-dark via-sky-dark to-peach-dark text-transparent bg-clip-text drop-shadow-[0_2px_6px_rgba(0,0,0,0.18)]">
               Jump, Dance, and Tumble Into Fun!
             </h1>
             <p className="mt-2 text-xl md:text-2xl font-semibold text-primary/90 max-w-2xl mx-auto mb-6">
-              Discover joyful classes for every bunny—gymnastics, dance, art, and more!
+              Discover joyful classes for every bunny—gymnastics, dance, yoga, and more!
             </p>
+            {/* HERO CTA BUTTON: lighter, less rainbow */}
             <Button
               size="lg"
-              className="mt-2 px-8 py-4 text-lg font-bold rounded-full shadow-lg bg-gradient-to-r from-primary to-pink-400 hover:from-pink-400 hover:to-primary transition-colors"
+              className="mt-2 px-8 py-4 text-lg font-bold rounded-full shadow-lg bg-lemon border-2 border-bubblegum-dark text-primary hover:bg-lemon-dark hover:text-primary-foreground transition-colors"
               onClick={() => {
                 const regSection = document.getElementById('register');
                 if (regSection) regSection.scrollIntoView({ behavior: 'smooth' });
@@ -301,45 +342,39 @@ export default function Home() {
               Find Your Class
             </Button>
             <div className="mt-8 flex justify-center">
-              <Image
-                src="https://placehold.co/180x180.png"
-                width={180}
-                height={180}
-                alt="TumbleBunnies Mascot"
-                className="rounded-full border-4 border-primary shadow-xl bg-white animate-bounce"
-                data-ai-hint="cute bunny mascot, playful, jumping"
-              />
+              <div className="rounded-full bg-white border-4 border-bubblegum-dark shadow-xl flex items-center justify-center animate-bounce" style={{ width: 180, height: 180 }} aria-label="Bunny mascot">
+                <Rabbit className="h-28 w-28 text-bubblegum-dark" aria-label="Bunny mascot" />
+              </div>
             </div>
           </div>
           {/* Decorative background shapes */}
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-200 rounded-full opacity-30 blur-2xl z-0" />
-          <div className="absolute -bottom-16 right-0 w-64 h-64 bg-primary/20 rounded-full opacity-20 blur-3xl z-0" />
+          <div className="absolute -top-10 -left-10 w-40 h-40 bg-bubblegum/30 rounded-full opacity-30 blur-2xl z-0" />
+          <div className="absolute -bottom-16 right-0 w-64 h-64 bg-lemon/20 rounded-full opacity-20 blur-3xl z-0" />
         </section>
 
         {/* Login/Registration Section */}
         <section id="register" className="py-6 md:py-8 flex flex-col items-center justify-center flex-1">
-          <div className="container mx-auto px-4 max-w-md flex flex-col items-center justify-center text-center">
-            <Card className="shadow-2xl w-full max-w-md mx-auto">
-              <Tabs defaultValue="login" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger
-                    value="login"
-                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  >
-                    Login
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="register"
-                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground animate-pulse"
-                  >
-                    New Registration
-                  </TabsTrigger>
-                </TabsList>
+          <div ref={loginBoxRef} className="container mx-auto px-4 max-w-md flex flex-col items-center justify-center text-center">
+            <Card className="shadow-2xl w-full max-w-xl mx-auto p-8 md:p-12 border-2 border-bubblegum bg-white/90 backdrop-blur-md">
+              {/* LOGIN/REGISTRATION BUTTONS: playful, purposeful hover colors */}
+              <div className="flex w-full gap-2 mb-4">
+                <Button
+                  className={`flex-1 text-lg px-6 py-4 font-extrabold rounded-t-lg shadow-none ${activeForm === 'login' ? 'bg-primary text-primary-foreground shadow-lg' : 'bg-primary/10 text-primary'} hover:bg-sky/30 hover:text-primary`}
+                  onClick={() => setActiveForm('login')}
+                >
+                  Login
+                </Button>
+                <Button
+                  className={`flex-1 text-lg px-6 py-4 font-extrabold rounded-t-lg shadow-none ${activeForm === 'register' ? 'bg-primary text-primary-foreground shadow-lg' : 'bg-primary/10 text-primary'} hover:bg-bubblegum/30 hover:text-primary`}
+                  onClick={() => setActiveForm('register')}
+                >
+                  New Registration
+                </Button>
+              </div>
 
-                {/* Login Tab */}
-                <TabsContent value="login">
+              {activeForm === 'login' ? (
+                <>
                   <CardHeader className="text-center pb-2">
-                    <CardTitle className="font-headline text-2xl">Returning Parent</CardTitle>
                     <CardDescription>Sign in to your account.</CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
@@ -360,6 +395,7 @@ export default function Home() {
                                     type="email"
                                     placeholder="you@example.com"
                                     {...field}
+                                    className="focus:ring-2 focus:ring-bubblegum"
                                   />
                                 </FormControl>
                                 <FormMessage />
@@ -373,7 +409,7 @@ export default function Home() {
                               <FormItem>
                                 <FormLabel className="text-center">Password</FormLabel>
                                 <FormControl>
-                                  <Input type="password" placeholder="••••••••" {...field} />
+                                  <Input type="password" placeholder="••••••••" {...field} className="focus:ring-2 focus:ring-bubblegum" />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -420,6 +456,7 @@ export default function Home() {
                               placeholder="you@example.com"
                               value={forgotPasswordEmail}
                               onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                              className="focus:ring-2 focus:ring-bubblegum"
                             />
                           </div>
                           <div className="flex gap-2">
@@ -472,12 +509,10 @@ export default function Home() {
                       Sign in with Google
                     </Button>
                   </CardContent>
-                </TabsContent>
-
-                {/* New Registration Tab */}
-                <TabsContent value="register">
+                </>
+              ) : (
+                <>
                   <CardHeader className="text-center">
-                    <CardTitle className="font-headline text-2xl">New Parent</CardTitle>
                     <CardDescription>
                       Enter your facility code to get started.
                     </CardDescription>
@@ -521,14 +556,14 @@ export default function Home() {
                       </form>
                     </Form>
                   </CardContent>
-                </TabsContent>
-              </Tabs>
+                </>
+              )}
             </Card>
           </div>
         </section>
 
         {/* Why TumbleBunnies? Section */}
-        <section className="bg-background py-16 md:py-24">
+        <section className="bg-lemon/30 py-16 md:py-24">
           <div className="container mx-auto px-4 text-center">
             <div className="text-center">
               <h2 className="text-3xl font-bold font-headline text-primary">
@@ -541,9 +576,12 @@ export default function Home() {
             </div>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {philosophyPoints.map((point, index) => (
-                <div key={index} className="flex items-start gap-4">
+                <div key={index} className="flex flex-col items-center text-center gap-2">
                   <div className="flex-shrink-0">
-                    <Sparkles className="h-8 w-8 text-primary/80" />
+                    {index === 0 && <Sparkles className="h-8 w-8 text-bubblegum-dark" aria-label="Fun environment" />}
+                    {index === 1 && <Sparkles className="h-8 w-8 text-lemon-dark" aria-label="Safety and skill development" />}
+                    {index === 2 && <Sparkles className="h-8 w-8 text-sky-dark" aria-label="Self-confidence and coordination" />}
+                    {index === 3 && <Sparkles className="h-8 w-8 text-peach-dark" aria-label="Caring instructors" />}
                   </div>
                   <p className="text-base text-foreground">{point}</p>
                 </div>
@@ -553,15 +591,14 @@ export default function Home() {
         </section>
 
         {/* Class Showcase Section */}
-        <section className="bg-muted/30 py-16 md:py-24">
+        <section className="bg-gradient-to-br from-sky/20 to-peach/20 py-16 md:py-24">
           <div className="container mx-auto px-4 text-center">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold font-headline text-primary">
                 A Class for Every Bunny
               </h2>
               <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                From gymnastics to art, we offer a variety of classes to spark your child&apos;s
-                imagination and get them moving.
+                From gymnastics to dance, yoga, and more, we offer a variety of classes to spark your child's imagination and get them moving.
               </p>
             </div>
             <div className="w-full flex flex-col items-center justify-center">
@@ -576,34 +613,31 @@ export default function Home() {
                     const center = 150;
                     const x = center + radius * Math.cos(angle) - 45;
                     const y = center + radius * Math.sin(angle) - 45;
+                    // Pick a color from the palette for each card
+                    const borderColors = ['border-bubblegum-dark', 'border-lemon-dark', 'border-aqua-dark', 'border-sky-dark', 'border-peach-dark'];
+                    const borderColor = borderColors[idx % borderColors.length];
                     return (
                       <div
                         key={cls.id}
-                        className="absolute flex flex-col items-center justify-center w-[90px] h-[90px] p-2 bg-card rounded-xl shadow-xl transition-transform duration-200 hover:-translate-y-1 hover:scale-105 border-2 border-primary/20"
+                        className={`absolute flex flex-col items-center justify-center w-[90px] h-[90px] p-2 bg-card rounded-xl shadow-xl transition-transform duration-200 hover:-translate-y-1 hover:scale-105 border-4 ${borderColor}`}
                         style={{ left: x, top: y }}
                       >
                         {cls.imageUrl ? (
-                          <img src={cls.imageUrl} alt={cls.name} className="h-10 w-10 object-cover rounded-lg border-2 border-primary bg-white shadow-md" />
+                          <Image src={cls.imageUrl} alt={cls.name} width={40} height={40} className="h-10 w-10 object-cover rounded-lg border-2 border-primary bg-white shadow-md" />
                         ) : (
-                          <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center border-2 border-primary text-primary font-bold text-xl">
-                            {cls.name.charAt(0)}
-                          </div>
+                          classIcon(cls.name)
                         )}
-                        <span className="font-semibold text-foreground text-base mt-1 text-center truncate w-full" title={cls.name}>{cls.name}</span>
+                        <span className="font-semibold text-foreground text-base mt-1 text-center truncate w-full" title={cls.name} aria-label={cls.name}>{cls.name}</span>
                       </div>
                     );
                   })}
-                  {/* Optional: Add a bunny or logo in the center */}
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
-                    <img src="https://placehold.co/70x70.png" alt="Bunny Mascot" className="rounded-full border-2 border-primary bg-white shadow-md" />
-                  </div>
                 </div>
               )}
             </div>
           </div>
         </section>
       </main>
-      <footer className="bg-primary text-primary-foreground py-6">
+      <footer className="bg-primary text-primary-foreground py-6 border-t-4 border-gradient-to-r from-bubblegum-dark via-lemon-dark via-sky-dark to-peach-dark">
         <div className="container mx-auto px-4 flex justify-center items-center">
           <div className="flex gap-6">
             <a
@@ -611,16 +645,18 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TumbleBunnies on Facebook"
+              className="rounded-full bg-white border-2 border-bubblegum-dark p-1 shadow hover:bg-bubblegum/20 transition"
             >
-              <svg className="h-8 w-8 hover:opacity-80 transition-opacity" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.406.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .592 23.406 0 22.675 0"/></svg>
+              <svg className="h-8 w-8 text-bubblegum-dark" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.406.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .592 23.406 0 22.675 0"/></svg>
             </a>
             <a
               href="https://www.instagram.com/tumblebunnies/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TumbleBunnies on Instagram"
+              className="rounded-full bg-white border-2 border-bubblegum-dark p-1 shadow hover:bg-bubblegum/20 transition"
             >
-              <svg className="h-8 w-8 hover:opacity-80 transition-opacity" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.13 4.602.402 3.635 1.37 2.668 2.338 2.396 3.511 2.338 4.788.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.058 1.277.33 2.45 1.298 3.418.968.968 2.141 1.24 3.418 1.298C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.277-.058 2.45-.33 3.418-1.298.968-.968 1.24-2.141 1.298-3.418.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.058-1.277-.33-2.45-1.298-3.418-.968-.968-2.141-1.24-3.418-1.298C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              <svg className="h-8 w-8 text-bubblegum-dark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.13 4.602.402 3.635 1.37 2.668 2.338 2.396 3.511 2.338 4.788.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.058 1.277.33 2.45 1.298 3.418.968.968 2.141 1.24 3.418 1.298C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.277-.058 2.45-.33 3.418-1.298.968-.968 1.24-2.141 1.298-3.418.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.058-1.277-.33-2.45-1.298-3.418-.968-.968-2.141-1.24-3.418-1.298C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
             </a>
           </div>
         </div>
