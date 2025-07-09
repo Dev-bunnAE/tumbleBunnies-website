@@ -296,9 +296,12 @@ export default function AccountPage() {
             <h1 className="text-4xl font-headline font-bold text-primary mb-4">
               My Account
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-muted-foreground mb-4">
               Manage your profile, registration details, and account settings
             </p>
+            <Button onClick={() => router.push("/")} variant="outline" className="mt-2">
+              ← Back to Storefront
+            </Button>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

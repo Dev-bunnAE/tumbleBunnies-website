@@ -1,5 +1,6 @@
 "use client";
 
+import { AdminAuthGuard } from "@/components/admin/admin-auth-guard";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,69 +58,71 @@ export default function AdminRegistrationsPage() {
   }
 
   return (
-    <>
-      <AdminHeader />
-      <main className="container mx-auto px-4 py-12">
-        <Card className="shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">All Registrations</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="text-center py-8">Loading...</div>
-            ) : error ? (
-              <div className="text-center text-destructive py-8">{error}</div>
-            ) : registrations.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">No registrations found.</div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full border text-sm">
-                  <thead>
-                    <tr className="bg-muted">
-                      <th className="px-4 py-2 border-b text-left">Parent Name</th>
-                      <th className="px-4 py-2 border-b text-left">Email</th>
-                      <th className="px-4 py-2 border-b text-left">Facility</th>
-                      <th className="px-4 py-2 border-b text-left">Children</th>
-                      <th className="px-4 py-2 border-b text-left">Created</th>
-                      <th className="px-4 py-2 border-b text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {registrations.map(reg => (
-                      <tr key={reg.id} className="even:bg-muted/30">
-                        <td className="px-4 py-2 border-b">{reg.parentName}</td>
-                        <td className="px-4 py-2 border-b">{reg.parentEmail}</td>
-                        <td className="px-4 py-2 border-b">{reg.facilityName || reg.facilityId}</td>
-                        <td className="px-4 py-2 border-b">
-                          {Array.isArray(reg.children)
-                            ? reg.children.join(", ")
-                            : reg.childName || "-"}
-                        </td>
-                        <td className="px-4 py-2 border-b">
-                          {reg.createdAt ? new Date(reg.createdAt).toLocaleString() : "-"}
-                        </td>
-                        <td className="px-4 py-2 border-b flex gap-2">
-                          <Link href={`/admin/registrations/${reg.id}`}>
-                            <Button size="sm" variant="outline">Edit</Button>
-                          </Link>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(reg.id, reg.userId)}
-                            disabled={deletingId === reg.id}
-                          >
-                            {deletingId === reg.id ? "Deleting..." : "Delete"}
-                          </Button>
-                        </td>
+    <AdminAuthGuard>
+      <>
+        <AdminHeader />
+        <main className="container mx-auto px-4 py-12">
+          <Card className="shadow-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold">All Registrations</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="text-center py-8">Loading...</div>
+              ) : error ? (
+                <div className="text-center text-destructive py-8">{error}</div>
+              ) : registrations.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">No registrations found.</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full border text-sm">
+                    <thead>
+                      <tr className="bg-muted">
+                        <th className="px-4 py-2 border-b text-left">Parent Name</th>
+                        <th className="px-4 py-2 border-b text-left">Email</th>
+                        <th className="px-4 py-2 border-b text-left">Facility</th>
+                        <th className="px-4 py-2 border-b text-left">Children</th>
+                        <th className="px-4 py-2 border-b text-left">Created</th>
+                        <th className="px-4 py-2 border-b text-left">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </main>
-    </>
+                    </thead>
+                    <tbody>
+                      {registrations.map(reg => (
+                        <tr key={reg.id} className="even:bg-muted/30">
+                          <td className="px-4 py-2 border-b">{reg.parentName}</td>
+                          <td className="px-4 py-2 border-b">{reg.parentEmail}</td>
+                          <td className="px-4 py-2 border-b">{reg.facilityName || reg.facilityId}</td>
+                          <td className="px-4 py-2 border-b">
+                            {Array.isArray(reg.children)
+                              ? reg.children.join(", ")
+                              : reg.childName || "-"}
+                          </td>
+                          <td className="px-4 py-2 border-b">
+                            {reg.createdAt ? new Date(reg.createdAt).toLocaleString() : "-"}
+                          </td>
+                          <td className="px-4 py-2 border-b flex gap-2">
+                            <Link href={`/admin/registrations/${reg.id}`}>
+                              <Button size="sm" variant="outline">Edit</Button>
+                            </Link>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDelete(reg.id, reg.userId)}
+                              disabled={deletingId === reg.id}
+                            >
+                              {deletingId === reg.id ? "Deleting..." : "Delete"}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </main>
+      </>
+    </AdminAuthGuard>
   );
 } 

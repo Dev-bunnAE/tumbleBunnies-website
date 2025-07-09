@@ -29,6 +29,7 @@ export default function FacilityClassesPage() {
   // Child selection dialog state
   const [childDialogOpen, setChildDialogOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState<{cls: Class, session: number, price: number} | null>(null);
+  const [classToSessions, setClassToSessions] = useState<{ [classId: string]: number[] }>({});
 
   useEffect(() => {
     async function fetchData() {
@@ -53,9 +54,19 @@ export default function FacilityClassesPage() {
         const facData = { id: facSnap.id, ...facSnap.data() } as Facility;
         setFacility(facData);
         
+        // Build a set of valid classIds and a map of classId to valid sessionLengths
+        const availablePairs = facData.availablePairs || [];
+        const validClassIds = Array.from(new Set(availablePairs.map(p => p.classId)));
+        const classToSessions: { [classId: string]: number[] } = {};
+        availablePairs.forEach(pair => {
+          if (!classToSessions[pair.classId]) classToSessions[pair.classId] = [];
+          classToSessions[pair.classId].push(pair.sessionLength);
+        });
+        setClassToSessions(classToSessions);
+
         // Fetch classes
         const classSnaps = await Promise.all(
-          (facData.classIds || []).map((cid) => getDoc(doc(db, "classes", cid)))
+          validClassIds.map((cid) => getDoc(doc(db, "classes", cid)))
         );
         setClasses(
           classSnaps
@@ -185,7 +196,7 @@ export default function FacilityClassesPage() {
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-3">
-                  {(facility.sessionLengths || []).map((session) => {
+                  {(classToSessions[cls.id] || []).map((session) => {
                     const price = facility.pricing?.[cls.id]?.[session];
                     if (price == null) return null;
                     return (

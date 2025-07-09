@@ -1,5 +1,6 @@
 'use client';
 
+import { AdminAuthGuard } from '@/components/admin/admin-auth-guard';
 import { AdminHeader } from '@/components/admin/admin-header';
 import { db } from '@/lib/firebase';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -146,84 +147,86 @@ export default function AddClass() {
   }
 
   return (
-    <div>
-      <AdminHeader />
-      <main className="container mx-auto px-4 py-12 max-w-xl">
-        <h1 className="text-3xl font-headline font-bold text-primary mb-8 text-center">Add Class</h1>
-        <form className="bg-card rounded-lg shadow-md p-6 space-y-4" onSubmit={handleSubmit}>
-          <input className="w-full p-2 border rounded" name="name" placeholder="Class Name" value={form.name} onChange={handleChange} required />
-          <select className="w-full p-2 border rounded" name="ageRange" value={form.ageRange} onChange={handleChange} required>
-            <option value="" disabled>Select Age Range</option>
-            {AGE_RANGE_OPTIONS.map(opt => (
-              <option key={opt} value={opt}>{opt === 'Any' ? 'Any' : `${opt} years`}</option>
-            ))}
-          </select>
-          <div className="flex flex-col gap-2">
-            <span className="font-semibold">Class Image</span>
-            <div className="flex gap-4 items-center">
-              <input
-                type="file"
-                accept="image/jpeg,image/png"
-                ref={inputFileRef}
-                onChange={onSelectFile}
-                className="hidden"
-              />
-              <button
-                type="button"
-                className="bg-primary text-primary-foreground px-4 py-2 rounded font-semibold"
-                onClick={() => inputFileRef.current?.click()}
-              >
-                <PhotoCamera className="inline mr-2" /> Upload Image
-              </button>
-              {form.imageUrl && (
-                <img src={form.imageUrl} alt="Class" className="h-16 w-16 object-cover rounded" />
+    <AdminAuthGuard>
+      <div>
+        <AdminHeader />
+        <main className="container mx-auto px-4 py-12 max-w-xl">
+          <h1 className="text-3xl font-headline font-bold text-primary mb-8 text-center">Add Class</h1>
+          <form className="bg-card rounded-lg shadow-md p-6 space-y-4" onSubmit={handleSubmit}>
+            <input className="w-full p-2 border rounded" name="name" placeholder="Class Name" value={form.name} onChange={handleChange} required />
+            <select className="w-full p-2 border rounded" name="ageRange" value={form.ageRange} onChange={handleChange} required>
+              <option value="" disabled>Select Age Range</option>
+              {AGE_RANGE_OPTIONS.map(opt => (
+                <option key={opt} value={opt}>{opt === 'Any' ? 'Any' : `${opt} years`}</option>
+              ))}
+            </select>
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold">Class Image</span>
+              <div className="flex gap-4 items-center">
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png"
+                  ref={inputFileRef}
+                  onChange={onSelectFile}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  className="bg-primary text-primary-foreground px-4 py-2 rounded font-semibold"
+                  onClick={() => inputFileRef.current?.click()}
+                >
+                  <PhotoCamera className="inline mr-2" /> Upload Image
+                </button>
+                {form.imageUrl && (
+                  <img src={form.imageUrl} alt="Class" className="h-16 w-16 object-cover rounded" />
+                )}
+              </div>
+              {error && <p className="text-destructive text-sm mt-2">{error}</p>}
+              {cropping && (
+                <div className="relative w-full h-64 bg-muted rounded mt-4">
+                  <Cropper
+                    image={imageSrc}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={onCropComplete}
+                  />
+                  <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center">
+                    <Slider
+                      min={1}
+                      max={3}
+                      step={0.01}
+                      value={zoom}
+                      onChange={(_, v) => setZoom(v as number)}
+                      className="w-1/2"
+                    />
+                    <button
+                      type="button"
+                      className="mt-2 bg-primary text-primary-foreground px-4 py-2 rounded font-semibold"
+                      onClick={handleCropAndUpload}
+                      disabled={uploading}
+                    >
+                      {uploading ? <CircularProgress size={20} /> : 'Crop & Upload'}
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
-            {error && <p className="text-destructive text-sm mt-2">{error}</p>}
-            {cropping && (
-              <div className="relative w-full h-64 bg-muted rounded mt-4">
-                <Cropper
-                  image={imageSrc}
-                  crop={crop}
-                  zoom={zoom}
-                  aspect={1}
-                  onCropChange={setCrop}
-                  onZoomChange={setZoom}
-                  onCropComplete={onCropComplete}
-                />
-                <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center">
-                  <Slider
-                    min={1}
-                    max={3}
-                    step={0.01}
-                    value={zoom}
-                    onChange={(_, v) => setZoom(v as number)}
-                    className="w-1/2"
-                  />
-                  <button
-                    type="button"
-                    className="mt-2 bg-primary text-primary-foreground px-4 py-2 rounded font-semibold"
-                    onClick={handleCropAndUpload}
-                    disabled={uploading}
-                  >
-                    {uploading ? <CircularProgress size={20} /> : 'Crop & Upload'}
-                  </button>
-                </div>
-              </div>
-            )}
+            <button
+              className="bg-primary text-primary-foreground px-4 py-2 rounded font-semibold w-full disabled:opacity-50"
+              type="submit"
+              disabled={saving}
+            >
+              {saving ? 'Saving...' : 'Save Class'}
+            </button>
+          </form>
+          <div className="text-center mt-4">
+            <Link href="/admin/classes" className="text-primary hover:underline">Back to Classes</Link>
           </div>
-          <button
-            className="bg-primary text-primary-foreground px-4 py-2 rounded font-semibold w-full disabled:opacity-50"
-            type="submit"
-            disabled={saving}
-          >
-            {saving ? 'Saving...' : 'Save Class'}
-          </button>
-        </form>
-        <div className="text-center mt-4">
-          <Link href="/admin/classes" className="text-primary hover:underline">Back to Classes</Link>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </AdminAuthGuard>
   );
 } 

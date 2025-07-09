@@ -44,11 +44,10 @@ export interface Facility {
   address: string;
   phone: string;
   registrationCode: string;
-  sessionLengths: number[]; // e.g., [5,6,7,8]
-  classIds: string[]; // IDs of classes assigned to this facility
+  availablePairs: Array<{ classId: string; sessionLength: number }>;
   pricing: {
     [classId: string]: {
-      [sessionLength: string]: number;
+      [sessionLength: number]: number;
     };
   };
 }
@@ -73,6 +72,7 @@ interface PendingRegistration {
 export interface Class {
   id: string;
   name: string;
+  description?: string;
   type: string;
   ageRange: string; // e.g., '2-3', '4-5', etc.
   skillLevel: string;

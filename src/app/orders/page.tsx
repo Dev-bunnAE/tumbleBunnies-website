@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 export default function UserOrdersPage() {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [classes, setClasses] = useState<{[key: string]: string}>({});
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -24,6 +25,8 @@ export default function UserOrdersPage() {
 
       try {
         setLoading(true);
+        
+        // Fetch orders
         const ordersRef = collection(db, "orders");
         const q = query(ordersRef, where("parentEmail", "==", user.email));
         const querySnapshot = await getDocs(q);
@@ -36,6 +39,16 @@ export default function UserOrdersPage() {
         // Sort by creation date (newest first)
         ordersData.sort((a, b) => b.createdAt - a.createdAt);
         setOrders(ordersData);
+
+        // Fetch classes for class names
+        const classesRef = collection(db, "classes");
+        const classesSnapshot = await getDocs(classesRef);
+        const classesMap: {[key: string]: string} = {};
+        classesSnapshot.docs.forEach(doc => {
+          const classData = doc.data();
+          classesMap[doc.id] = classData.name;
+        });
+        setClasses(classesMap);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -69,7 +82,10 @@ export default function UserOrdersPage() {
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-headline font-bold text-primary mb-2">My Orders</h1>
-          <p className="text-muted-foreground">View your class registrations and order history</p>
+          <p className="text-muted-foreground mb-4">View your class registrations and order history</p>
+          <Button onClick={() => router.push("/")} variant="outline" className="mt-2">
+            ← Back to Storefront
+          </Button>
         </div>
 
         {loading ? (
@@ -127,7 +143,7 @@ export default function UserOrdersPage() {
                       <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                         <div className="flex-1">
                           <div className="font-semibold text-primary">
-                            {item.classId} {/* We'll need to fetch class names */}
+                            {classes[item.classId] || `Class (${item.classId})`}
                           </div>
                           <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
                             <User className="w-3 h-3" />
