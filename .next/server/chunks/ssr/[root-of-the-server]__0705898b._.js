@@ -403,6 +403,20 @@ const CartProvider = ({ children })=>{
             ];
         });
     };
+    const decreaseItem = (itemId)=>{
+        setItems((prevItems)=>{
+            const existingItem = prevItems.find((item)=>item.id === itemId);
+            if (existingItem && existingItem.quantity > 1) {
+                // Decrease quantity
+                return prevItems.map((item)=>item.id === itemId ? {
+                        ...item,
+                        quantity: item.quantity - 1
+                    } : item);
+            }
+            // If quantity is 1, remove the item
+            return prevItems.filter((item)=>item.id !== itemId);
+        });
+    };
     const removeItem = (itemId)=>{
         setItems((prevItems)=>prevItems.filter((item)=>item.id !== itemId));
     };
@@ -419,6 +433,7 @@ const CartProvider = ({ children })=>{
         items,
         addItem,
         removeItem,
+        decreaseItem,
         clearCart,
         updateItemChild
     };
@@ -427,7 +442,7 @@ const CartProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/context/cart-context.tsx",
-        lineNumber: 70,
+        lineNumber: 86,
         columnNumber: 10
     }, this);
 };

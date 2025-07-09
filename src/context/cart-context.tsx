@@ -18,6 +18,7 @@ interface CartContextType {
   items: CartItem[];
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
   removeItem: (itemId: string) => void;
+  decreaseItem: (itemId: string) => void;
   clearCart: () => void;
   updateItemChild: (itemId: string, childName: string) => void;
 }
@@ -29,7 +30,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addItem = (itemToAdd: Omit<CartItem, 'quantity'>) => {
+  const addItem = (itemToAdd: Omit<CartItem, 'quantity'> | CartItem) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === itemToAdd.id);
       if (existingItem) {
@@ -40,6 +41,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       // Otherwise, add new item with quantity 1
       return [...prevItems, { ...itemToAdd, quantity: 1 }];
+    });
+  };
+
+  const decreaseItem = (itemId: string) => {
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === itemId);
+      if (existingItem && existingItem.quantity > 1) {
+        // Decrease quantity
+        return prevItems.map((item) =>
+          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      }
+      // If quantity is 1, remove the item
+      return prevItems.filter((item) => item.id !== itemId);
     });
   };
 
@@ -63,6 +78,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     items,
     addItem,
     removeItem,
+    decreaseItem,
     clearCart,
     updateItemChild,
   };

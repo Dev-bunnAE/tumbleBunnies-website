@@ -1,12 +1,5 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/admin/classes/[id]/page": "app/admin/classes/[id]/page.js",
-  "/admin/classes/page": "app/admin/classes/page.js",
-  "/admin/facilities/page": "app/admin/facilities/page.js",
-  "/admin/merchandise/page": "app/admin/merchandise/page.js",
-  "/admin/orders/page": "app/admin/orders/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/admin/registrations/page": "app/admin/registrations/page.js",
   "/classes/[facilityId]/page": "app/classes/[facilityId]/page.js",
   "/page": "app/page.js"
 }
