@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 // Define the shape of a cart item. This can be expanded later.
 interface CartItem {
@@ -8,6 +8,9 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  childName?: string; // Optional child name for class registrations
+  classId?: string; // Optional class ID for tracking
+  sessionLength?: number; // Optional session length for tracking
 }
 
 // Define the shape of the context value.
@@ -16,6 +19,7 @@ interface CartContextType {
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
   removeItem: (itemId: string) => void;
   clearCart: () => void;
+  updateItemChild: (itemId: string, childName: string) => void;
 }
 
 // Create the context with a default value.
@@ -47,11 +51,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setItems([]);
   };
 
+  const updateItemChild = (itemId: string, childName: string) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, childName } : item
+      )
+    );
+  };
+
   const value = {
     items,
     addItem,
     removeItem,
     clearCart,
+    updateItemChild,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
