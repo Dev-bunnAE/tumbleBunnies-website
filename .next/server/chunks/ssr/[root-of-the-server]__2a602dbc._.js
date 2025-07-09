@@ -320,6 +320,10 @@ const navLinks = [
         label: "Classes"
     },
     {
+        href: "/admin/merchandise",
+        label: "Merchandise"
+    },
+    {
         href: "/admin/orders",
         label: "Orders"
     },
@@ -351,7 +355,7 @@ function AdminHeader() {
                                 children: "Admin"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                                lineNumber: 32,
+                                lineNumber: 33,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -362,18 +366,18 @@ function AdminHeader() {
                                         children: link.label
                                     }, link.href, false, {
                                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 38,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                                lineNumber: 35,
+                                lineNumber: 36,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 31,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -388,17 +392,17 @@ function AdminHeader() {
                                         "aria-label": "User Account",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {}, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 51,
+                                            lineNumber: 52,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 51,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                    lineNumber: 49,
+                                    lineNumber: 50,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DropdownMenuContent"], {
@@ -408,12 +412,12 @@ function AdminHeader() {
                                             children: user?.email || "Admin"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 55,
+                                            lineNumber: 56,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 57,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -424,37 +428,37 @@ function AdminHeader() {
                                                     className: "h-4 w-4 mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 59,
                                                     columnNumber: 17
                                                 }, this),
                                                 " Logout"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 58,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/admin/admin-header.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 55,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/admin/admin-header.tsx",
-                            lineNumber: 48,
+                            lineNumber: 49,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 47,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                lineNumber: 30,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -465,18 +469,18 @@ function AdminHeader() {
                         children: link.label
                     }, link.href, false, {
                         fileName: "[project]/src/components/admin/admin-header.tsx",
-                        lineNumber: 67,
+                        lineNumber: 68,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/admin/admin-header.tsx",
-                lineNumber: 65,
+                lineNumber: 66,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/admin/admin-header.tsx",
-        lineNumber: 29,
+        lineNumber: 30,
         columnNumber: 5
     }, this);
 }

@@ -353,6 +353,10 @@ function StorefrontHeader() {
     const getCartItemCount = ()=>{
         return items.reduce((total, item)=>total + item.quantity, 0);
     };
+    const handleCartClick = ()=>{
+        console.log('Cart clicked, navigating to checkout...');
+        router.push('/checkout');
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
         className: "bg-background/95 backdrop-blur-sm sticky top-0 z-40 border-b shadow-sm",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -370,7 +374,7 @@ function StorefrontHeader() {
                             "data-ai-hint": "bunny logo"
                         }, void 0, false, {
                             fileName: "[project]/src/components/storefront-header.tsx",
-                            lineNumber: 53,
+                            lineNumber: 58,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -378,13 +382,13 @@ function StorefrontHeader() {
                             children: "TumbleBunnies"
                         }, void 0, false, {
                             fileName: "[project]/src/components/storefront-header.tsx",
-                            lineNumber: 60,
+                            lineNumber: 65,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/storefront-header.tsx",
-                    lineNumber: 52,
+                    lineNumber: 57,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -393,15 +397,15 @@ function StorefrontHeader() {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                             variant: "ghost",
                             size: "icon",
-                            className: "relative",
+                            className: "relative cursor-pointer",
                             "aria-label": "Shopping Cart",
-                            onClick: ()=>router.push("/checkout"),
+                            onClick: handleCartClick,
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__["ShoppingCart"], {
                                     className: "h-5 w-5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/storefront-header.tsx",
-                                    lineNumber: 75,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 getCartItemCount() > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -409,13 +413,13 @@ function StorefrontHeader() {
                                     children: getCartItemCount()
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/storefront-header.tsx",
-                                    lineNumber: 77,
+                                    lineNumber: 82,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/storefront-header.tsx",
-                            lineNumber: 68,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this),
                         user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenu"], {
@@ -430,17 +434,17 @@ function StorefrontHeader() {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 88,
+                                            lineNumber: 93,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/storefront-header.tsx",
-                                        lineNumber: 87,
+                                        lineNumber: 92,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/storefront-header.tsx",
-                                    lineNumber: 86,
+                                    lineNumber: 91,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuContent"], {
@@ -457,7 +461,7 @@ function StorefrontHeader() {
                                                         children: user.email
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/storefront-header.tsx",
-                                                        lineNumber: 94,
+                                                        lineNumber: 99,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -465,23 +469,23 @@ function StorefrontHeader() {
                                                         children: user.displayName || 'User'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/storefront-header.tsx",
-                                                        lineNumber: 95,
+                                                        lineNumber: 100,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/storefront-header.tsx",
-                                                lineNumber: 93,
+                                                lineNumber: 98,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 97,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 105,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -494,19 +498,19 @@ function StorefrontHeader() {
                                                         className: "h-4 w-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/storefront-header.tsx",
-                                                        lineNumber: 103,
+                                                        lineNumber: 108,
                                                         columnNumber: 21
                                                     }, this),
                                                     "My Profile"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/storefront-header.tsx",
-                                                lineNumber: 102,
+                                                lineNumber: 107,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 101,
+                                            lineNumber: 106,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -519,24 +523,24 @@ function StorefrontHeader() {
                                                         className: "h-4 w-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/storefront-header.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 114,
                                                         columnNumber: 21
                                                     }, this),
                                                     "My Orders"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/storefront-header.tsx",
-                                                lineNumber: 108,
+                                                lineNumber: 113,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 107,
+                                            lineNumber: 112,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuSeparator"], {}, void 0, false, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 118,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -547,43 +551,43 @@ function StorefrontHeader() {
                                                     className: "h-4 w-4 mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/storefront-header.tsx",
-                                                    lineNumber: 118,
+                                                    lineNumber: 123,
                                                     columnNumber: 19
                                                 }, this),
                                                 "Logout"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/storefront-header.tsx",
-                                            lineNumber: 114,
+                                            lineNumber: 119,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/storefront-header.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 96,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/storefront-header.tsx",
-                            lineNumber: 85,
+                            lineNumber: 90,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/storefront-header.tsx",
-                    lineNumber: 66,
+                    lineNumber: 71,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/storefront-header.tsx",
-            lineNumber: 50,
+            lineNumber: 55,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/storefront-header.tsx",
-        lineNumber: 49,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 }
